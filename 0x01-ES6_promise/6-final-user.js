@@ -9,7 +9,7 @@ async function handleProfileSignup(firstName, lastName, fileName) {
 
   const results = await Promise.allSettled(promises);
 
-  return results.map(result => () ({
+  return results.map(result => ({
     status: result.status,
     value: result.status === 'fulfilled' ? result.value : result.reason,
   }));
