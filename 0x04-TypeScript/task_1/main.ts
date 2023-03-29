@@ -1,45 +1,48 @@
-interface Student {
-  firstName: string;
-  lastName: string;
-  age: number;
+interface Teacher {
+  readonly firstName: string;
+  readonly lastName: string;
+  fullTimeEmployee: boolean;
+  yearsOfExperience?: number;
   location: string;
+  contract: boolean;
+  [propName: string]: any;
 }
 
-const student1: Student = {
-  firstName: "Nicole",
-  lastName: "Mwenda",
-  age: 2,
-  location: "Marsabit"
+interface Directors extends Teacher {
+  numberOfReports: number;
+}
+
+interface printTeacherFunction {
+  (firstName: string, lastName: string): string;
+}
+
+const printTeacher: printTeacherFunction = (firstName, lastName) => {
+  return `${firstName[0]}. ${lastName}`;
 };
 
-const student2: Student = {
-  firstName: "Ryan",
-  lastName: "Mwenda",
-  age: 4,
-  location: "Meru"
+interface StudentConstructor {
+  new (firstName: string, lastName: string): StudentClassInterface;
+}
+
+interface StudentClassInterface {
+  workOnHomework(): string;
+  displayName(): string;
+}
+
+const StudentClass: StudentConstructor = class StudentClass implements StudentClassInterface {
+  firstName: string;
+  lastName: string;
+
+  constructor(firstName: string, lastName: string) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  workOnHomework(): string {
+    return "Currently working";
+  }
+  displayName(): string {
+    return this.firstName;
+  }
 };
 
-const studentsList: Student[] = [student1, student2];
-
-const table = document.createElement("table");
-const headerRow = document.createElement("tr");
-const firstNameHeader = document.createElement("th");
-firstNameHeader.innerText = "First Name";
-const locationHeader = document.createElement("th");
-locationHeader.innerText = "Location";
-headerRow.appendChild(firstNameHeader);
-headerRow.appendChild(locationHeader);
-table.appendChild(headerRow);
-
-studentsList.forEach(student => {
-  const row = document.createElement("tr");
-  const firstNameCell = document.createElement("td");
-  firstNameCell.innerText = student.firstName;
-  const locationCell = document.createElement("td");
-  locationCell.innerText = student.location;
-  row.appendChild(firstNameCell);
-  row.appendChild(locationCell);
-  table.appendChild(row);
-});
-
-document.body.appendChild(table);
+export { printTeacher, StudentClass };
