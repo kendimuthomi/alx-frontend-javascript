@@ -1,45 +1,29 @@
-interface Student {
-  firstName: string;
-  lastName: string;
-  age: number;
-  location: string;
-}
+/// <reference path="subjects/Teacher.ts" />
+/// <reference path="subjects/Subject.ts" />
+/// <reference path="subjects/Cpp.ts" />
+/// <reference path="subjects/React.ts" />
+/// <reference path="subjects/Java.ts" />
 
-const student1: Student = {
-  firstName: "Nicole",
-  lastName: "Mwenda",
-  age: 2,
-  location: "Marsabit"
+export const cpp = new Subjects.Cpp();
+export const java = new Subjects.Java();
+export const react = new Subjects.React();
+export const cTeacher: Subjects.Teacher = {
+  firstName: "Bobby",
+  lastName: "Wine",
+  experienceTeachingC: 10,
 };
 
-const student2: Student = {
-  firstName: "Ryan",
-  lastName: "Mwenda",
-  age: 4,
-  location: "Meru"
-};
+console.log("C++");
+cpp.setTeacher = cTeacher;
+console.log(cpp.getRequirements());
+console.log(cpp.getAvailableTeacher());
 
-const studentsList: Student[] = [student1, student2];
+console.log("Java");
+java.setTeacher = cTeacher;
+console.log(java.getRequirements());
+console.log(java.getAvailableTeacher());
 
-const table = document.createElement("table");
-const headerRow = document.createElement("tr");
-const firstNameHeader = document.createElement("th");
-firstNameHeader.innerText = "First Name";
-const locationHeader = document.createElement("th");
-locationHeader.innerText = "Location";
-headerRow.appendChild(firstNameHeader);
-headerRow.appendChild(locationHeader);
-table.appendChild(headerRow);
-
-studentsList.forEach(student => {
-  const row = document.createElement("tr");
-  const firstNameCell = document.createElement("td");
-  firstNameCell.innerText = student.firstName;
-  const locationCell = document.createElement("td");
-  locationCell.innerText = student.location;
-  row.appendChild(firstNameCell);
-  row.appendChild(locationCell);
-  table.appendChild(row);
-});
-
-document.body.appendChild(table);
+console.log("React");
+react.setTeacher = cTeacher;
+console.log(react.getRequirements());
+console.log(react.getAvailableTeacher());
