@@ -1,83 +1,45 @@
-interface DirectorInterface {
-  workFromHome(): string;
-  getCoffeeBreak(): string;
-  workDirectorTasks(): string;
+interface Student {
+  firstName: string;
+  lastName: string;
+  age: number;
+  location: string;
 }
 
-interface TeacherInterface {
-  workFromHome(): string;
-  getCoffeeBreak(): string;
-  workTeacherTasks(): string;
-}
+const student1: Student = {
+  firstName: "Nicole",
+  lastName: "Mwenda",
+  age: 2,
+  location: "Marsabit"
+};
 
-class Director implements DirectorInterface {
-  workFromHome(): string {
-    return "Working from home";
-  }
+const student2: Student = {
+  firstName: "Ryan",
+  lastName: "Mwenda",
+  age: 4,
+  location: "Meru"
+};
 
-  getCoffeeBreak(): string {
-    return "Getting a coffee break";
-  }
+const studentsList: Student[] = [student1, student2];
 
-  workDirectorTasks(): string {
-    return "Getting to director tasks";
-  }
-}
+const table = document.createElement("table");
+const headerRow = document.createElement("tr");
+const firstNameHeader = document.createElement("th");
+firstNameHeader.innerText = "First Name";
+const locationHeader = document.createElement("th");
+locationHeader.innerText = "Location";
+headerRow.appendChild(firstNameHeader);
+headerRow.appendChild(locationHeader);
+table.appendChild(headerRow);
 
-class Teacher implements TeacherInterface {
-  workFromHome(): string {
-    return "Cannot work from home";
-  }
+studentsList.forEach(student => {
+  const row = document.createElement("tr");
+  const firstNameCell = document.createElement("td");
+  firstNameCell.innerText = student.firstName;
+  const locationCell = document.createElement("td");
+  locationCell.innerText = student.location;
+  row.appendChild(firstNameCell);
+  row.appendChild(locationCell);
+  table.appendChild(row);
+});
 
-  getCoffeeBreak(): string {
-    return "Cannot have a break";
-  }
-
-  workTeacherTasks(): string {
-    return "Getting to work";
-  }
-}
-
-function createEmployee(salary: number | string): Director | Teacher {
-  if (typeof salary === "number" && salary < 500) {
-    return new Teacher();
-  } else {
-    return new Director();
-  }
-}
-
-console.log(createEmployee(200));
-console.log(createEmployee(1000));
-console.log(createEmployee("$500"));
-
-// functions specific to employees
-
-function isDirector(employee: Teacher | Director): boolean {
-  return employee instanceof Director;
-}
-
-function executeWork(employee: Teacher | Director): string {
-  if (employee instanceof Director) {
-    return employee.workDirectorTasks();
-  } else if (employee instanceof Teacher) {
-    return employee.workTeacherTasks();
-  }
-}
-
-console.log(executeWork(createEmployee(200)));
-console.log(executeWork(createEmployee(1000)));
-
-// String literal types
-
-type Subjects = "Math" | "History";
-
-function teachClass(todayClass: Subjects): string {
-  if (todayClass === "Math") {
-    return `Teaching Math`;
-  } else if (todayClass === "History") {
-    return `Teaching History`;
-  }
-}
-
-console.log(teachClass("Math"));
-console.log(teachClass("History"));
+document.body.appendChild(table);
